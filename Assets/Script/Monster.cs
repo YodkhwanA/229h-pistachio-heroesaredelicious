@@ -1,16 +1,22 @@
 using UnityEngine;
 
-public class Monster : MonoBehaviour
+public abstract class Monster : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public float speed;
+    public int damage;
+    
+
+    protected Transform baseTarget;
+
+    
+   
+    public void Die()
     {
-        
+        Destroy(gameObject); // หรือใช้ Object Pooling แทนถ้ามี
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+
+
 }
+
