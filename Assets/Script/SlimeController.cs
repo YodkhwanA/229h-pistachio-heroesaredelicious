@@ -4,8 +4,8 @@ public class SlimeController : MonoBehaviour
 {
     public float speed = 5f;
 
-    public float desiredJumpHeight = 4f;         // ความสูงที่อยากให้กระโดดได้
-    public float gravity = 9.8f;                 // ค่าคงที่แรงโน้มถ่วง
+    public float desiredJumpHeight = 4f;         
+    public float gravity = 9.8f;                 
     public bool isJumping = false;
 
     private float moveInput;
