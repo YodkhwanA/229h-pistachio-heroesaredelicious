@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Monster1 : Monster
+public class MonsterFast : Monster
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
