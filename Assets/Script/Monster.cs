@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class Monster : MonoBehaviour
 {
     public float speed;
-    public int damage;
+    public float damage;
     
 
     protected Transform baseTarget;

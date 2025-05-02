@@ -14,7 +14,7 @@ public class Base : MonoBehaviour
     }
     public void TakeDamage(float damage)
     {
-        currestHp -= damage; // ← ลบเลือดก่อน
+        currestHp -= damage;
         currestHp = Mathf.Clamp(currestHp, 0, baseHp); 
 
         Debug.Log("Base HP: " + currestHp);

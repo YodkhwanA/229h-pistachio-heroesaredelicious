@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class HeartBar : MonoBehaviour
 {
     [SerializeField] private Base baseHp;
-    [SerializeField] private Image healthBarFill;      // Image ที่ใช้เป็นแถบเลือด
+    [SerializeField] private Image healthBarFill;      
 
     private void Update()
     {
