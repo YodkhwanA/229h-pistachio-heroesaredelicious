@@ -1,25 +1,48 @@
-using System.Threading;
+﻿using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
 public class Base : MonoBehaviour
 {
-    protected int hp = 10;
+    public float baseHp = 10; 
+    public float currestHp { get;  private set; }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void Awake()
     {
-        if (other.gameObject.CompareTag("Monster"))
+        currestHp = baseHp;
+    }
+    public void TakeDamage(float damage)
+    {
+        currestHp -= damage; // ← ลบเลือดก่อน
+        currestHp = Mathf.Clamp(currestHp, 0, baseHp); 
+
+        Debug.Log("Base HP: " + currestHp);
+
+        if (currestHp <= 0)
         {
-            hp--;
-
-            Debug.Log("Base hit! HP left: " + hp);
-
-            if (hp <= 0)
-            {
-                Debug.Log("��");
-            }
-
-            Destroy(other.gameObject); // ������͹���
+            Debug.Log("แพ้");
+            
         }
     }
+
+
+
+
+    //private void OnCollisionEnter2D(Collision2D other)
+    //{
+    //    if (other.gameObject.CompareTag("Monster"))
+    //    {
+    //        baseHp--;
+
+    //        Debug.Log("Base hit! HP left: " + baseHp);
+
+    //        if (baseHp <= 0)
+    //        {
+    //            Debug.Log("แพ้");
+    //        }
+
+    //        Destroy(other.gameObject); // ทำให้มอนตาย
+    //    }
+    //}
 }

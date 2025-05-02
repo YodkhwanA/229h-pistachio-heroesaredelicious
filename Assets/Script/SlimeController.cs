@@ -4,9 +4,10 @@ public class SlimeController : MonoBehaviour
 {
     public float speed = 5f;
 
-    public float desiredJumpHeight = 4f;         
+    public float JumpHeight = 4f;         
     public float gravity = 9.8f;                 
     public bool isJumping = false;
+    public float jumpAngle = 60f;
 
     private float moveInput;
     private Rigidbody2D rb2d;
@@ -20,17 +21,25 @@ public class SlimeController : MonoBehaviour
     {
         moveInput = Input.GetAxis("Horizontal");
 
-        // เคลื่อนที่ซ้าย-ขวา
-        rb2d.velocity = new Vector2(moveInput * speed, rb2d.velocity.y);
+        
+        rb2d.velocity = new Vector2(moveInput * speed, rb2d.velocity.y);//
 
-        // คำนวณความเร็วที่ต้องใช้เพื่อกระโดดให้ได้ความสูงที่กำหนด
-        float jumpSpeed = Mathf.Sqrt(2 * gravity * desiredJumpHeight);
-
-        // กระโดดแบบฟิสิกส์ ใช้ velocity แทน AddForce เพื่อควบคุมแม่นยำ
+        
         if (Input.GetButtonDown("Jump") && !isJumping)
         {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, jumpSpeed);
+            float totalJumpSpeed = Mathf.Sqrt(2 * gravity * JumpHeight);
+
+          
+            float angleRad = jumpAngle * Mathf.Deg2Rad;
+            float jumpVelocityX = totalJumpSpeed * Mathf.Cos(angleRad);
+            float jumpVelocityY = totalJumpSpeed * Mathf.Sin(angleRad);
+
+            
+            float direction = moveInput >= 0 ? 1f : -1f;
+
+            rb2d.velocity = new Vector2(jumpVelocityX * direction, jumpVelocityY);
             isJumping = true;
+
         }
     }
 
@@ -48,10 +57,10 @@ public class SlimeController : MonoBehaviour
                 Monster monster = other.gameObject.GetComponent<Monster>();
                 if (monster != null)
                 {
-                    monster.Die(); // มอนตาย
+                    monster.Die(); 
                 }
 
-                // เด้งกลับหลังเหยียบ
+                
                 rb2d.velocity = new Vector2(rb2d.velocity.x, 2f);
                 isJumping = true;
             }
