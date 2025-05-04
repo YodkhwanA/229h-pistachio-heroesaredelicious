@@ -5,31 +5,47 @@ using UnityEngine;
 public class SlimeController : MonoBehaviour
 {
     public float speed = 5f;
-    public float jumpTime = 0.8f; 
-    public bool isJumping = false;
+    public float jumpTime = 0.8f;
 
+    private bool isJumping = false;
     private float moveInput;
+
     private Rigidbody2D rb2d;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
-        moveInput = Input.GetAxis("Horizontal");
+        HandleMovement();
+        HandleJump();
+        UpdateAnimationStates();
+    }
 
-        
+    void HandleMovement()
+    {
+        moveInput = Input.GetAxis("Horizontal");
         rb2d.velocity = new Vector2(moveInput * speed, rb2d.velocity.y);
 
+        
+        if (moveInput > 0)
+            spriteRenderer.flipX = true;
+        else if (moveInput < 0)
+            spriteRenderer.flipX = false;
+    }
+
+    void HandleJump()
+    {
         if (Input.GetButtonDown("Jump") && !isJumping)
         {
             float direction = moveInput >= 0 ? 1f : -1f;
-
             Vector2 origin = rb2d.position;
-
-            
             Vector2 target = origin + new Vector2(3f * direction, 2f);
 
             Vector2 jumpVelocity = CalculateProjectileVelocity(origin, target, jumpTime);
@@ -38,10 +54,31 @@ public class SlimeController : MonoBehaviour
         }
     }
 
+    void UpdateAnimationStates()
+    {
+        animator.SetFloat("xVelocity", Mathf.Abs(rb2d.velocity.x));
+        animator.SetFloat("yVelocity", rb2d.velocity.y);
+
+        if (isJumping)
+        {
+            if (rb2d.velocity.y > 0.1f)  
+            {
+                animator.SetBool("isJumping", true);
+            }
+            else if (rb2d.velocity.y < -0.1f) 
+            {
+                animator.SetBool("isJumping", true);
+            }
+        }
+        else
+        {
+            animator.SetBool("isJumping", false);  
+        }
+    }
+
     Vector2 CalculateProjectileVelocity(Vector2 origin, Vector2 target, float time)
     {
         Vector2 distance = target - origin;
-
         float velocityX = distance.x / time;
         float velocityY = distance.y / time + 0.5f * Mathf.Abs(Physics2D.gravity.y) * time;
 
@@ -53,25 +90,18 @@ public class SlimeController : MonoBehaviour
         if (other.gameObject.CompareTag("Ground"))
         {
             isJumping = false;
+            animator.SetBool("isJumping", false);
         }
 
-        if (other.gameObject.CompareTag("Monster"))
+        if (other.gameObject.CompareTag("Monster") && rb2d.velocity.y < 0)
         {
-            if (rb2d.velocity.y < 0)
-            {
-                Monster monster = other.gameObject.GetComponent<Monster>();
-                if (monster != null)
-                {
-                    monster.Die();
-                }
+            Monster monster = other.gameObject.GetComponent<Monster>();
+            if (monster != null)
+                monster.Die();
 
-                rb2d.velocity = new Vector2(rb2d.velocity.x, 4f);
-                isJumping = true;
-            }
-            else
-            {
-                Debug.Log("‚¥π¡Õπµ’!");
-            }
+            rb2d.velocity = new Vector2(rb2d.velocity.x, 4f);
+            isJumping = true;
+            animator.SetBool("isJumping", true);
         }
     }
 

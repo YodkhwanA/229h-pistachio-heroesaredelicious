@@ -189,6 +189,28 @@ PolygonCollider2D:
       - {x: 0.275, y: -0.13}
       - {x: 0.275, y: 0.13}
   m_UseDelaunayMesh: 0
+--- !u!95 &196495823
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 196495816}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 089250a8c5ce3a34ebd140c612696fda, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &217797480
 GameObject:
   m_ObjectHideFlags: 0
@@ -1291,7 +1313,7 @@ SpriteRenderer:
   m_SortingOrder: 2
   m_Sprite: {fileID: 1250608815, guid: a4bb56552ba539b428fecdb34a3528ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.55, y: 0.36}
@@ -1330,7 +1352,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpTime: 0.8
-  isJumping: 0
 --- !u!95 &928268801
 Animator:
   serializedVersion: 7
@@ -1341,7 +1362,7 @@ Animator:
   m_GameObject: {fileID: 928268793}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1913785331c1e9f43a7b43384994b1d3, type: 2}
+  m_Controller: {fileID: 9100000, guid: f2d23d11e3558aa419367ec54ec1f394, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3040,6 +3061,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Base
       objectReference: {fileID: 0}
+    - target: {fileID: 176372241273540358, guid: ea9ffbb56bdc3f740a421e297787eedb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2670730932143656939, guid: ea9ffbb56bdc3f740a421e297787eedb, type: 3}
       propertyPath: gameManager
       value: 
@@ -3091,6 +3116,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 176372241273540358, guid: ea9ffbb56bdc3f740a421e297787eedb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 196495820}
+    - targetCorrespondingSourceObject: {fileID: 176372241273540358, guid: ea9ffbb56bdc3f740a421e297787eedb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 196495823}
   m_SourcePrefab: {fileID: 100100000, guid: ea9ffbb56bdc3f740a421e297787eedb, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

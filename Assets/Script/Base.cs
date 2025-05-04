@@ -5,20 +5,23 @@ using UnityEngine;
 
 public class Base : MonoBehaviour
 {
-    public float baseHp = 10; 
+    public float baseHp = 10;
+    private Animator animator;
     public float currestHp { get;  private set; }
     public GameManager gameManager;
 
     private void Awake()
     {
         currestHp = baseHp;
+        animator = GetComponent<Animator>();
     }
     public void TakeDamage(float damage)
     {
         currestHp -= damage;
-        currestHp = Mathf.Clamp(currestHp, 0, baseHp); 
+        currestHp = Mathf.Clamp(currestHp, 0, baseHp);
+        animator.SetBool("isHurt", true);
+        Invoke(nameof(EndHurt), 1f);
 
-        
 
         if (currestHp <= 0)
         {
@@ -27,7 +30,10 @@ public class Base : MonoBehaviour
         }
     }
 
-
+    private void EndHurt()
+    {
+        animator.SetBool("isHurt", false);
+    }
 
 
     //private void OnCollisionEnter2D(Collision2D other)

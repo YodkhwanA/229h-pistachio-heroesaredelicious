@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  damage: 5
+  damage: 3
   rb: {fileID: 8741064417416463383}
   territory: {fileID: 176372241273540358, guid: ea9ffbb56bdc3f740a421e297787eedb, type: 3}
 --- !u!50 &8741064417416463383
