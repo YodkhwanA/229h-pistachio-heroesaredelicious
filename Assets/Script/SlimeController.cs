@@ -65,7 +65,7 @@ public class SlimeController : MonoBehaviour
                     monster.Die();
                 }
 
-                rb2d.velocity = new Vector2(rb2d.velocity.x, 2f);
+                rb2d.velocity = new Vector2(rb2d.velocity.x, 4f);
                 isJumping = true;
             }
             else
