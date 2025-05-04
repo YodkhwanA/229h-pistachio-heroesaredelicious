@@ -47,8 +47,9 @@ public abstract class Monster : MonoBehaviour
 
            
             Die();
+            
         }
     }
-
+   
 }
 

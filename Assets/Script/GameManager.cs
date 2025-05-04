@@ -1,16 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public GameOverSreen GameOverSreen;
+    public void GameOver()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        GameOverSreen.Setup();
     }
 }

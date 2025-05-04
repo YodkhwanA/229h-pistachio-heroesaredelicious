@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpawnManeger : MonoBehaviour
 {
@@ -25,11 +26,11 @@ public class SpawnManeger : MonoBehaviour
         int spawnCount = 0;
         while (true)
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(4f);
             Spawn();
             spawnCount++;
             if (spawnCount >= 10)
-            { break; }
+            { SceneManager.LoadSceneAsync(2); }
 
 
 

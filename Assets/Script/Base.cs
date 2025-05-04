@@ -7,6 +7,7 @@ public class Base : MonoBehaviour
 {
     public float baseHp = 10; 
     public float currestHp { get;  private set; }
+    public GameManager gameManager;
 
     private void Awake()
     {
@@ -17,12 +18,12 @@ public class Base : MonoBehaviour
         currestHp -= damage;
         currestHp = Mathf.Clamp(currestHp, 0, baseHp); 
 
-        Debug.Log("Base HP: " + currestHp);
+        
 
         if (currestHp <= 0)
         {
-            Debug.Log("แพ้");
-            
+            gameManager.GameOver();
+            Time.timeScale = 0f;
         }
     }
 
