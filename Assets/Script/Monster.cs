@@ -4,21 +4,23 @@ public abstract class Monster : MonoBehaviour
 {
     public float speed;
     public float damage;
-    
-
     protected Transform baseTarget;
     public Rigidbody2D rb;
     public GameObject territory;
+    
+    
 
 
     public void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         territory = GameObject.FindGameObjectWithTag("Base");
+        
     }
     public void Die()
     {
-        Destroy(gameObject); 
+        Destroy(gameObject);
+       
     }
     public void Update()
     {

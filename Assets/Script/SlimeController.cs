@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SlimeController : MonoBehaviour
 {
@@ -13,12 +14,16 @@ public class SlimeController : MonoBehaviour
     private Rigidbody2D rb2d;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    public AudioClip JumpSfx;
+    private AudioSource audioSource;
+    public AudioClip dieSfx;
 
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -51,6 +56,11 @@ public class SlimeController : MonoBehaviour
             Vector2 jumpVelocity = CalculateProjectileVelocity(origin, target, jumpTime);
             rb2d.velocity = jumpVelocity;
             isJumping = true;
+            if (JumpSfx != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(JumpSfx);
+            }
+
         }
     }
 
@@ -98,6 +108,7 @@ public class SlimeController : MonoBehaviour
             Monster monster = other.gameObject.GetComponent<Monster>();
             if (monster != null)
                 monster.Die();
+            audioSource.PlayOneShot(dieSfx);
 
             rb2d.velocity = new Vector2(rb2d.velocity.x, 4f);
             isJumping = true;
@@ -112,6 +123,7 @@ public class SlimeController : MonoBehaviour
             isJumping = true;
         }
     }
+   
 }
 
 
