@@ -17,13 +17,13 @@ public class ButtonAudio : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
         audioSource.loop = true;
     }
 
-    // เมื่อเมาส์เข้าไปที่ปุ่ม
+    
     public void OnPointerEnter(PointerEventData eventData)
     {
         audioSource.PlayOneShot(hoverSound);  
     }
 
-    // เมื่อกดปุ่ม
+    
     public void OnPointerClick(PointerEventData eventData)
     {
         audioSource.PlayOneShot(clickSound);  
