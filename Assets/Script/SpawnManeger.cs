@@ -3,53 +3,116 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Audio;
 
 public class SpawnManager : MonoBehaviour
 {
-    public Transform[] spawnPoint;
-    public GameObject enemyPrefab;
+    [System.Serializable]
+    public class Wave
+    {
+        public float startDelay = 2f;       
+        public float spawnDelay = 0.5f;     
+        public int[] enemyInx;          
+    }
 
-    
-    public int waveCount = 3;
-    public float spawnDelay = 4f;
-    public float startDelay = 3f;
-    public int nextSceneIndex = 2;
+    public Transform[] spawnPoints;
+    public GameObject[] enemyPrefabs;
+    public Wave[] waves;
 
-    
-    public TMP_Text waveText; 
-    public GameObject endPanel; 
+    public TMP_Text countdownText;
+    public TMP_Text waveText;
+    public GameObject endPanel;
+    public Button buttonSelectStage;
+    public Button buttonNextStage;
 
     void Start()
     {
-        StartCoroutine(SpawnRoutine());
-    }
-
-    void Spawn()
-    {
-        int idx = Random.Range(0, spawnPoint.Length);
-        Instantiate(enemyPrefab, spawnPoint[idx].position, Quaternion.identity);
+        if (waveText != null)
+            waveText.text = "Wave 1";
+        StartCoroutine(CountdownThenStart());
     }
 
     IEnumerator SpawnRoutine()
     {
-        yield return new WaitForSeconds(startDelay);
-
-        for (int i = 0; i < waveCount; i++)
+        for (int i = 0; i < waves.Length; i++)
         {
-            
-            if (waveText != null)
-                waveText.text = $"Wave {i + 1} / {waveCount}";
+            Wave currentWave = waves[i];
 
-            Spawn();
-            yield return new WaitForSeconds(spawnDelay);
+           
+            if (waveText != null)
+            {
+                waveText.gameObject.SetActive(true);
+                waveText.text = $"Wave {i + 1} / {waves.Length}";
+            }
+
+            yield return new WaitForSeconds(currentWave.startDelay);
+
+            foreach (int enemyIndex in currentWave.enemyInx)
+            {
+                Spawn(enemyIndex);
+                yield return new WaitForSeconds(currentWave.spawnDelay);
+            }
+
+            yield return new WaitForSeconds(2f); 
         }
 
         
         if (endPanel != null)
+        {
+            endPanel.SetActive(true);
+        }
+
+        yield return new WaitForSeconds(3f);
+        EndLevel();
+        
+    }
+    IEnumerator CountdownThenStart()
+    {
+        if (countdownText != null)
+        {
+            countdownText.gameObject.SetActive(true);
+
+            countdownText.text = "3";
+            yield return new WaitForSeconds(1f);
+
+            countdownText.text = "2";
+            yield return new WaitForSeconds(1f);
+
+            countdownText.text = "1";
+            yield return new WaitForSeconds(1f);
+
+            countdownText.text = "Start!";
+            yield return new WaitForSeconds(0.5f);
+
+            countdownText.gameObject.SetActive(false);
+        }
+        StartCoroutine(SpawnRoutine());
+    }
+
+    void Spawn(int enemyIndex)
+    {
+        if (enemyIndex < 0 || enemyIndex >= enemyPrefabs.Length) return;
+
+        int spawnIdx = Random.Range(0, spawnPoints.Length);
+        Instantiate(enemyPrefabs[enemyIndex], spawnPoints[spawnIdx].position, Quaternion.identity);
+    }
+    void EndLevel()
+    {
+        if (endPanel != null)
             endPanel.SetActive(true);
 
-        yield return new WaitForSeconds(2f); 
+        Time.timeScale = 0f;
+    }
 
-        SceneManager.LoadSceneAsync(nextSceneIndex);
+    public void OnSelectStageButton()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("StageScene"); 
+    }
+
+    public void OnNextStageButton()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

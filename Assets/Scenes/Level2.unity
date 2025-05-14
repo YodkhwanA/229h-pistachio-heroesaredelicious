@@ -1720,14 +1720,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48b44b8b7b9e94849aefaab3f3427a65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint:
+  spawnPoints:
   - {fileID: 1285375910}
   - {fileID: 259949857}
-  enemyPrefab: {fileID: 2293457023525443140, guid: 0649b469dfe0e734daa29efe3c1ea6ee, type: 3}
-  waveCount: 3
-  spawnDelay: 4
-  startDelay: 3
-  nextSceneIndex: 2
+  enemyPrefabs:
+  - {fileID: 7702949359113921282, guid: 324f87d662f4e2046ad59b56b5b49024, type: 3}
+  waves:
+  - startDelay: 2
+    spawnDelay: 2
+    enemyInx: 0a000000
+  - startDelay: 2
+    spawnDelay: 2
+    enemyInx: 0a000000
+  - startDelay: 2
+    spawnDelay: 2
+    enemyInx: 0a000000
   waveText: {fileID: 1006428191}
   endPanel: {fileID: 483330219}
 --- !u!4 &696653490
@@ -3483,15 +3490,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7749980988374197677, guid: ea9ffbb56bdc3f740a421e297787eedb, type: 3}
       propertyPath: m_Color.b
-      value: 0.36806685
+      value: 0.69803923
       objectReference: {fileID: 0}
     - target: {fileID: 7749980988374197677, guid: ea9ffbb56bdc3f740a421e297787eedb, type: 3}
       propertyPath: m_Color.g
-      value: 0.9245283
+      value: 0.7056604
       objectReference: {fileID: 0}
     - target: {fileID: 7749980988374197677, guid: ea9ffbb56bdc3f740a421e297787eedb, type: 3}
       propertyPath: m_Color.r
-      value: 0.41949767
+      value: 0.4988286
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
