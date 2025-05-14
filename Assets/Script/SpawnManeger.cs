@@ -1,14 +1,25 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
-public class SpawnManeger : MonoBehaviour
+public class SpawnManager : MonoBehaviour
 {
     public Transform[] spawnPoint;
     public GameObject enemyPrefab;
 
+    
+    public int waveCount = 3;
+    public float spawnDelay = 4f;
+    public float startDelay = 3f;
+    public int nextSceneIndex = 2;
 
-     void Start()
+    
+    public TMP_Text waveText; 
+    public GameObject endPanel; 
+
+    void Start()
     {
         StartCoroutine(SpawnRoutine());
     }
@@ -21,21 +32,24 @@ public class SpawnManeger : MonoBehaviour
 
     IEnumerator SpawnRoutine()
     {
-        yield return new WaitForSeconds(3f);
-        Spawn();
-        int spawnCount = 0;
-        while (true)
+        yield return new WaitForSeconds(startDelay);
+
+        for (int i = 0; i < waveCount; i++)
         {
-            yield return new WaitForSeconds(4f);
+            
+            if (waveText != null)
+                waveText.text = $"Wave {i + 1} / {waveCount}";
+
             Spawn();
-            spawnCount++;
-            if (spawnCount >= 10)
-            { SceneManager.LoadSceneAsync(2); }
-
-
-
+            yield return new WaitForSeconds(spawnDelay);
         }
 
+        
+        if (endPanel != null)
+            endPanel.SetActive(true);
 
+        yield return new WaitForSeconds(2f); 
+
+        SceneManager.LoadSceneAsync(nextSceneIndex);
     }
 }
