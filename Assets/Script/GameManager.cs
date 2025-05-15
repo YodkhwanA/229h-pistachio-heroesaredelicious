@@ -8,8 +8,6 @@ public class GameManager : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip bgSfx;
 
-    public int currentLevel;
-
     private SaveData saveData;
 
     private void Start()
@@ -20,16 +18,6 @@ public class GameManager : MonoBehaviour
         audioSource.Play();
 
         saveData = SaveSystem.Load();
-
-        string sceneName = SceneManager.GetActiveScene().name;
-        if (sceneName.StartsWith("Level"))
-        {
-            string levelNumberString = sceneName.Substring(5); 
-            if (int.TryParse(levelNumberString, out int levelNumber))
-            {
-                currentLevel = levelNumber;
-            }
-        }
     }
 
     int GetCurrentLevelFromSceneName()
@@ -41,17 +29,20 @@ public class GameManager : MonoBehaviour
             if (int.TryParse(levelNumberStr, out int levelNumber))
                 return levelNumber;
         }
-        return 1; 
+        return 1;
     }
 
     public void OnLevelComplete()
     {
-        if (currentLevel >= saveData.UnlockedLevel)
+        int level = GetCurrentLevelFromSceneName();
+
+        if (level >= saveData.UnlockedLevel)
         {
-            saveData.UnlockedLevel = currentLevel + 1;
+            saveData.UnlockedLevel = level + 1;
             SaveSystem.Save(saveData);
             Debug.Log("Level Unlocked! Now: " + saveData.UnlockedLevel);
         }
+
         SceneManager.LoadScene("LevelSelect");
     }
 

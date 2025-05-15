@@ -5,40 +5,26 @@ using UnityEngine.SceneManagement;
 public class LevelSelect : MonoBehaviour
 {
     public Button[] levelButtons;
-    private SaveData saveData;
 
-    private void Start()
+    void Start()
     {
-        saveData = SaveSystem.Load();
+        SaveData data = SaveSystem.Load();
 
         for (int i = 0; i < levelButtons.Length; i++)
         {
-            int levelIndex = i + 1;
-            int capturedIndex = levelIndex;
+            int level = i + 1;
+            bool unlocked = level <= data.UnlockedLevel;
 
-            
-            levelButtons[i].interactable = true;
+            levelButtons[i].interactable = unlocked;
 
-            levelButtons[i].onClick.RemoveAllListeners();
-            levelButtons[i].onClick.AddListener(() => TryLoadLevel(capturedIndex));
-        }
-    }
-
-    void TryLoadLevel(int level)
-    {
-        if (level == 1)
-        {
-            
-            SceneManager.LoadScene("Level" + level);
-        }
-        else if (level <= saveData.UnlockedLevel)
-        {
-            
-            SceneManager.LoadScene("Level" + level);
-        }
-        else
-        {
-            Debug.Log($"Level {level} is locked! Pass previous level first.");
+            if (unlocked)
+            {
+                int sceneIndex = level; 
+                levelButtons[i].onClick.AddListener(() =>
+                {
+                    SceneManager.LoadScene("Level" + level);
+                });
+            }
         }
     }
 }
