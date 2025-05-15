@@ -1,22 +1,44 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 public class LevelSelect : MonoBehaviour
 {
-    public Button level1Button;
-    public Button level2Button;
-    public Button level3Button;
+    public Button[] levelButtons;
+    private SaveData saveData;
 
-    void Start()
+    private void Start()
     {
-        level1Button.onClick.AddListener(() => LoadLevel(1));
-        level2Button.onClick.AddListener(() => LoadLevel(2));
-        level3Button.onClick.AddListener(() => LoadLevel(3));
+        saveData = SaveSystem.Load();
+
+        for (int i = 0; i < levelButtons.Length; i++)
+        {
+            int levelIndex = i + 1;
+            int capturedIndex = levelIndex;
+
+            
+            levelButtons[i].interactable = true;
+
+            levelButtons[i].onClick.RemoveAllListeners();
+            levelButtons[i].onClick.AddListener(() => TryLoadLevel(capturedIndex));
+        }
     }
 
-    void LoadLevel(int levelIndex)
+    void TryLoadLevel(int level)
     {
-        SceneManager.LoadScene("Level" + levelIndex);
+        if (level == 1)
+        {
+            
+            SceneManager.LoadScene("Level" + level);
+        }
+        else if (level <= saveData.UnlockedLevel)
+        {
+            
+            SceneManager.LoadScene("Level" + level);
+        }
+        else
+        {
+            Debug.Log($"Level {level} is locked! Pass previous level first.");
+        }
     }
-
 }

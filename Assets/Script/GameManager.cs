@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -9,7 +8,9 @@ public class GameManager : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip bgSfx;
 
-    private int currentLevel;
+    public int currentLevel;
+
+    private SaveData saveData;
 
     private void Start()
     {
@@ -18,24 +19,40 @@ public class GameManager : MonoBehaviour
         audioSource.loop = true;
         audioSource.Play();
 
-        
-        currentLevel = SaveSystem.LoadLevel();
-        Debug.Log("âËÅ´´èÒ¹ÅèÒÊØ´: " + currentLevel);
+        saveData = SaveSystem.Load();
+
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName.StartsWith("Level"))
+        {
+            string levelNumberString = sceneName.Substring(5); 
+            if (int.TryParse(levelNumberString, out int levelNumber))
+            {
+                currentLevel = levelNumber;
+            }
+        }
     }
 
-    
+    int GetCurrentLevelFromSceneName()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName.StartsWith("Level"))
+        {
+            string levelNumberStr = sceneName.Substring(5);
+            if (int.TryParse(levelNumberStr, out int levelNumber))
+                return levelNumber;
+        }
+        return 1; 
+    }
+
     public void OnLevelComplete()
     {
-        currentLevel++;
-        SaveSystem.SaveLevel(currentLevel);
-        SceneManager.LoadScene("Level" + currentLevel);
-    }
-
-   
-    public void LoadSavedLevel()
-    {
-        int savedLevel = SaveSystem.LoadLevel();
-        SceneManager.LoadScene("Level" + savedLevel);
+        if (currentLevel >= saveData.UnlockedLevel)
+        {
+            saveData.UnlockedLevel = currentLevel + 1;
+            SaveSystem.Save(saveData);
+            Debug.Log("Level Unlocked! Now: " + saveData.UnlockedLevel);
+        }
+        SceneManager.LoadScene("LevelSelect");
     }
 
     public void GameOver()

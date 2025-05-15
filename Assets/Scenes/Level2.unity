@@ -1787,7 +1787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 968c6f29c1b53a34f88bb9627e8a0185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameOverSreen: {fileID: 0}
+  GameOverSreen: {fileID: 719267770}
   GameOverSfx: {fileID: 8300000, guid: 3f046dbf88b0cfa40a6e5c8ff4ba9a22, type: 3}
   audioSource: {fileID: 669327473}
   bgSfx: {fileID: 8300000, guid: 816593856b80bdb478ad7b47eb376d0a, type: 3}
@@ -1927,8 +1927,8 @@ MonoBehaviour:
   - {fileID: 1285375910}
   - {fileID: 259949857}
   enemyPrefabs:
-  - {fileID: 7702949359113921282, guid: 324f87d662f4e2046ad59b56b5b49024, type: 3}
-  - {fileID: 5724729109109966246, guid: 82ba58ffec7c8594a9478d659ac3d998, type: 3}
+  - {fileID: 7075650408343056116, guid: 545c01937b0101f4491a1c3595bac4f2, type: 3}
+  - {fileID: 8990348083976565651, guid: 679efcef0dec01b49aac7685a5b5b216, type: 3}
   waves:
   - startDelay: 1
     spawnDelay: 3
@@ -3622,7 +3622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbbf5a631c557cd4e974cdc873ba5c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHp: {fileID: 0}
+  baseHp: {fileID: 2093904805}
   healthBarFill: {fileID: 716881955}
 --- !u!222 &1916990945
 CanvasRenderer:
@@ -3926,15 +3926,15 @@ PrefabInstance:
       objectReference: {fileID: 669327474}
     - target: {fileID: 4946846387630616310, guid: ea9ffbb56bdc3f740a421e297787eedb, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.7311854
+      value: 2.88693
       objectReference: {fileID: 0}
     - target: {fileID: 4946846387630616310, guid: ea9ffbb56bdc3f740a421e297787eedb, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3.7311854
+      value: 2.88693
       objectReference: {fileID: 0}
     - target: {fileID: 4946846387630616310, guid: ea9ffbb56bdc3f740a421e297787eedb, type: 3}
       propertyPath: m_LocalScale.z
-      value: 3.7311854
+      value: 2.88693
       objectReference: {fileID: 0}
     - target: {fileID: 4946846387630616310, guid: ea9ffbb56bdc3f740a421e297787eedb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3942,7 +3942,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4946846387630616310, guid: ea9ffbb56bdc3f740a421e297787eedb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.91
+      value: -4.13
       objectReference: {fileID: 0}
     - target: {fileID: 4946846387630616310, guid: ea9ffbb56bdc3f740a421e297787eedb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4080,6 +4080,17 @@ PolygonCollider2D:
       - {x: 0.275, y: -0.13}
       - {x: 0.275, y: 0.13}
   m_UseDelaunayMesh: 0
+--- !u!114 &2093904805 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2670730932143656939, guid: ea9ffbb56bdc3f740a421e297787eedb, type: 3}
+  m_PrefabInstance: {fileID: 2093904801}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093904802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15034e75b967a30409740ecb258d32b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2109544998
 GameObject:
   m_ObjectHideFlags: 0

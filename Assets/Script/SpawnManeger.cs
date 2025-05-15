@@ -102,6 +102,11 @@ public class SpawnManager : MonoBehaviour
             endPanel.SetActive(true);
 
         Time.timeScale = 0f;
+        GameManager gm = FindObjectOfType<GameManager>();
+        if (gm != null)
+        {
+            gm.OnLevelComplete();
+        }
     }
 
     public void OnSelectStageButton()

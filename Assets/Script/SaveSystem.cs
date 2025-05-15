@@ -1,35 +1,33 @@
-using UnityEngine;
 using System.IO;
+using UnityEngine;
 
 public static class SaveSystem
 {
-    private static string savePath = Application.persistentDataPath + "/savefile.json";
+    private static string saveFilePath = Application.persistentDataPath + "/savefile.json";
 
-    public static void SaveLevel(int level)
+    public static void Save(SaveData data)
     {
-        SaveData data = new SaveData();
-        data.currentLevel = level;
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(saveFilePath, json);
+    }
 
-        string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(savePath, json);
-
-        Debug.Log("Saved level: " + level);
+    public static SaveData Load()
+    {
+        if (File.Exists(saveFilePath))
+        {
+            string json = File.ReadAllText(saveFilePath);
+            return JsonUtility.FromJson<SaveData>(json);
+        }
+        else
+        {
+            return new SaveData();
+        }
     }
 
     public static int LoadLevel()
     {
-        if (File.Exists(savePath))
-        {
-            string json = File.ReadAllText(savePath);
-            SaveData data = JsonUtility.FromJson<SaveData>(json);
-            Debug.Log("Loaded level: " + data.currentLevel);
-            return data.currentLevel;
-        }
-        else
-        {
-            Debug.LogWarning("No save file found, returning level 1");
-            return 1;
-        }
+        SaveData data = Load();
+        return data.UnlockedLevel;
     }
 }
 
