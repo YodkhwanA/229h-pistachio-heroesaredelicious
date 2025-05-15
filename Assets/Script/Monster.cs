@@ -6,7 +6,7 @@ public abstract class Monster : MonoBehaviour
     public float damage;
     protected Transform baseTarget;
     public Rigidbody2D rb;
-    public GameObject territory;
+    [SerializeField] private GameObject territory;
     
     
 

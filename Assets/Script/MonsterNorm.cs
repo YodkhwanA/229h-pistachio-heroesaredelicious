@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MonsterFast : Monster
+public class MonsterNorm : Monster
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -9,5 +9,8 @@ public class MonsterFast : Monster
     }
 
     // Update is called once per frame
-   
+    void Update()
+    {
+        
+    }
 }

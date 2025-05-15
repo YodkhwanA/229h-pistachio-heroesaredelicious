@@ -1313,7 +1313,7 @@ MonoBehaviour:
   - {fileID: 1163666966}
   - {fileID: 1516064746}
   enemyPrefabs:
-  - {fileID: 2293457023525443140, guid: 0649b469dfe0e734daa29efe3c1ea6ee, type: 3}
+  - {fileID: 7075650408343056116, guid: 545c01937b0101f4491a1c3595bac4f2, type: 3}
   waves:
   - startDelay: 2
     spawnDelay: 2
