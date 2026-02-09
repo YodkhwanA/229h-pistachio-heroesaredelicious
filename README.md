@@ -1,5 +1,6 @@
 # Hero's are delicious - 2D Physics Slime
 **Project for Gi 204 Physics For Game**
+**https://pistacio-inc.itch.io/heros-are-delicious**
 
 ---
 
